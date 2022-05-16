@@ -160,9 +160,9 @@ RSpec.describe "Cats", type: :request do
       update_cat_params = {
         cat: {
           name: "",
-          age: 2,
-          enjoys: 'walk',
-          image: 'http://www.catpics.com'
+          age:nil,
+          enjoys: '',
+          image: ''
         }
       }
       patch "/cats/#{cat.id}", params: update_cat_params
@@ -170,6 +170,9 @@ RSpec.describe "Cats", type: :request do
       expect(response).to have_http_status(422)
       json = JSON.parse(response.body)
       expect(json['name']).to include "can't be blank"
+      expect(json['age']).to include "can't be blank"
+      expect(json['enjoys']).to include "can't be blank"
+      expect(json['image']).to include "can't be blank"
     end
   end
 
